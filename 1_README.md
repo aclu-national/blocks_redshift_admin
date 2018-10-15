@@ -1,5 +1,7 @@
 ### What does this Block do for me?
 
+
+
 **(1) ETL and Data Flow Management** - review ETL history, tables, and capacity, and set up alerts to trigger whenever errors occur in ETL or data movement processes.
 
 **(2) Monitor Database Performance** - provides a comprehensive view of query performance across all queries and users to understand how quickly your database is performing, allowing users to see exactly which queries are causing delays (if any), and why.
@@ -24,18 +26,18 @@
 
 ### Implementation Instructions / Customizations ##
 
-* **Where to deploy it** 
+* **Where to deploy it**
     - **Separate Project** (Recommended) - Since this model has little to no need to share views with the primary model, keeping it as its own project makes for the most convenient isolation of concerns.
     - **Existing Project** - Make sure that other models do not contain include: "*.dashboard.lkml", as these will attempt to include the Redshift dashboards into existing models in which they do not make sense and will cause errors.
 
-* **Connection and Permission** 
+* **Connection and Permission**
     - [Grant](http://docs.aws.amazon.com/redshift/latest/dg/r_GRANT.html) the SELECT privilege on:
       - [STV_WLM_SERVICE_CLASS_CONFIG](http://docs.aws.amazon.com/redshift/latest/dg/r_STV_WLM_SERVICE_CLASS_CONFIG.html)
       - [SVV_TABLE_INFO](http://docs.aws.amazon.com/redshift/latest/dg/r_SVV_TABLE_INFO.html)
       - [STV_TBL_PERM](http://docs.aws.amazon.com/redshift/latest/dg/r_STV_TBL_PERM.html)
       - [STV_BLOCKLIST](http://docs.aws.amazon.com/redshift/latest/dg/r_STV_BLOCKLIST.html)
       - [STL_LOAD_COMMITS](http://docs.aws.amazon.com/redshift/latest/dg/r_STL_LOAD_COMMITS.html)
-    - By default, grants to the above tables will **only allow the Redshift user to [view their own activity](https://docs.aws.amazon.com/redshift/latest/dg/c_visibility-of-data.html)**. 
+    - By default, grants to the above tables will **only allow the Redshift user to [view their own activity](https://docs.aws.amazon.com/redshift/latest/dg/c_visibility-of-data.html)**.
       Since Looker normally connects as a single Redshift user, this usually means all Looker activity, which is normally fine.
       If you want the reports to include data from other users you can execute these grants with [SYSLOG ACCESS](https://docs.aws.amazon.com/redshift/latest/dg/r_ALTER_USER.html#alter-user-syslog-access)
 
