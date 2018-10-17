@@ -7,6 +7,10 @@
   filters:
   - name: query
     type: number_filter
+  - name: query_text
+    type: field_filter
+    explore: redshift_queries
+    field: redshift_queries.query
     # Commented out due to reported but unreproduced reports of errors with this. (issues/21)
     # Feel free to re-enable in specific implementations
     #type: field_filter
